@@ -1,0 +1,3 @@
+[submodule "takapi/docker-takipi"]
+	path = takapi/docker-takipi
+	url = git@github.com:chook/docker-takipi.git
