@@ -4,7 +4,7 @@ DEBUG_PORT=9009
 
 JENKINS_OPTS=(--httpPort=8088)
 
-JAVA_OPTS=(-DJENKINS_HOME=/Users/pkern/var)
+JAVA_OPTS=(-DJENKINS_HOME=/Users/pkern/Documents/Docker/Volumes/jenkins_var)
 # TEST="-Xdebug -Xrunjdwp:transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=n"
 # JAVA_OPTS+=("$TEST")
 JAVA_OPTS+=(-Xdebug -Xrunjdwp:transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=n)

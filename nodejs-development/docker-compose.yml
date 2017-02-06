@@ -1,0 +1,5 @@
+node:
+    build: nodejs/.
+    command: echo 'NodeJS experimantal container for developement is ready!'
+    volumes:
+        - .:/home/nodejs/app
