@@ -12,5 +12,6 @@ services:
         environment: 
             - NGINX_HOST=foobar.com 
             - NGINX_PORT=80
-        # command: /bin/bash -c "envsubst < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+        # The envsubst "distroys" some of the values (cgi proxy) in the default.conf
+        # command: /bin/bash -c "set -o pipefail && envsubst < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
         command: nginx -g 'daemon off;'

@@ -1,7 +1,8 @@
 FROM nginx:stable-alpine
 
 RUN apk update \
-	&& apk add --no-cache bash
+	&& apk add --no-cache \
+	bash
 
 RUN mkdir /etc/nginx/conf.d/sites-enabled \
 	&& ln -s /etc/nginx/conf.d/sites/test.conf /etc/nginx/conf.d/sites-enabled/test.conf
@@ -11,4 +12,10 @@ RUN echo Running nginx build with configuration script: \
 	&& echo Test nginx configurations: \
 	&& echo $(nginx -t) 
 
-# CMD ["/bin/bash -c \"envsubst < /etc/nginx/conf.d/mysite.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'\""]
+# Not realy working!
+# ENV NGINX_HOST foobar.com
+# ENV NGINX_PORT 80
+# RUN /bin/bash -c "set -o pipefail" \
+# 	&& envsubst < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf
+	
+# CMD ["nginx", "-g", "daemon off;"]
