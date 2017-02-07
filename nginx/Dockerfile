@@ -1,0 +1,14 @@
+FROM nginx:stable-alpine
+
+RUN apk update \
+	&& apk add --no-cache bash
+
+RUN mkdir /etc/nginx/conf.d/sites-enabled \
+	&& ln -s /etc/nginx/conf.d/sites/test.conf /etc/nginx/conf.d/sites-enabled/test.conf
+
+RUN echo Running nginx build with configuration script: \
+	&& echo $(nginx -V) \
+	&& echo Test nginx configurations: \
+	&& echo $(nginx -t) 
+
+# CMD ["/bin/bash -c \"envsubst < /etc/nginx/conf.d/mysite.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'\""]
