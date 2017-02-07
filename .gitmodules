@@ -4,3 +4,6 @@
 [submodule "docker-elk"]
 	path = docker-elk
 	url = https://github.com/deviantony/docker-elk.git
+[submodule "nodejs-nginx"]
+	path = nodejs-nginx
+	url = https://github.com/ngineered/nginx-nodejs.git
