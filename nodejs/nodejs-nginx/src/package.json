@@ -1,0 +1,12 @@
+{
+  "name": "node-server-example",
+  "description": "Nginx with node.js server",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.x"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
+  }
+}

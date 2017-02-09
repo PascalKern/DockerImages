@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+    nginx-node:
+        build: .
+        command: echo 'Nginx and node.js ready and running!'
+        ports:
+            # - "127.0.0.1:443:443"
+            # - "0.0.0.0:80:80/tcp"
+            - "80:80"
+            - "443:443"
+    
