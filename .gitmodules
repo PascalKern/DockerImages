@@ -1,5 +1,5 @@
-[submodule "takapi/docker-takipi"]
-	path = takapi/docker-takipi
+[submodule "docker-takipi"]
+	path = takipi/docker-takipi
 	url = git@github.com:chook/docker-takipi.git
 [submodule "docker-elk"]
 	path = docker-elk
