@@ -1,9 +1,9 @@
-[submodule "docker-takipi"]
-	path = takipi/docker-takipi
-	url = git@github.com:chook/docker-takipi.git
 [submodule "docker-elk"]
 	path = docker-elk
 	url = https://github.com/deviantony/docker-elk.git
-[submodule "nodejs-nginx"]
-	path = nodejs-nginx
-	url = https://github.com/ngineered/nginx-nodejs.git
+#[submodule "nodejs-nginx"]
+#	path = nodejs/nodejs-nginx
+#	url = https://github.com/ngineered/nginx-nodejs.git
+[submodule "docker-takipi"]
+	path = docker-takipi
+	url = git@github.com:chook/docker-takipi.git

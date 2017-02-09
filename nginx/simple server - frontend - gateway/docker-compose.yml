@@ -5,7 +5,8 @@ services:
         # image: nginx 
         build: . 
         volumes: 
-            - ./conf.d:/etc/nginx/conf.d
+            - ./config/usrShareNginx:/usr/share/nginx
+            - ./config/conf.d:/etc/nginx/conf.d
             - ./html:/usr/local/share/nginx/html
         ports: 
             - "80:80"   # Host:Container
