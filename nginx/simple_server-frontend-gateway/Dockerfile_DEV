@@ -4,11 +4,6 @@ RUN apk update \
     && apk add --no-cache \
     bash
 
-COPY config/usrShareNginx /usr/share/nginx
-COPY config/conf.d /etc/nginx/conf.d
-COPY html /usr/local/share/nginx/html
-COPY scripts/container-internal /usr/local/bin/scripts
-
 # Prepare cleanuping - Create dirs and remove files
 RUN rm -rf /usr/share/nginx/html \
     && rm -rf /etc/nginx/nginx.conf

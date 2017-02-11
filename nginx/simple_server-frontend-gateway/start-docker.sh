@@ -11,17 +11,17 @@ if [ $? -ne 0 ]; then
 fi
 
 # Patch hosts file for experimental server name
-hostsFile=/etc/hosts
-if ! grep -q debug.imagic.ch "$hostsFile"; then
-    echo Tries to patch the hosts file: $hostsFile. Most likely we need root rights.
-    echo "
-# Host for docker experiment
-172.0.0.1   debug.imagic.ch
-" >> "$hostsFile" 2>/dev/null
-    if [ $? -ne 0 ]; then
-        echo COULD NOT PATCH THE HOSTSFILE! PLEASE RERUN THE START SCRIPT AS ROOT!
-    fi
-fi
+# hostsFile=/etc/hosts
+# if ! grep -q debug.imagic.ch "$hostsFile"; then
+#     echo Tries to patch the hosts file: $hostsFile. Most likely we need root rights.
+#     echo "
+# # Host for docker experiment
+# 172.0.0.1   debug.imagic.ch
+# " >> "$hostsFile" 2>/dev/null
+#     if [ $? -ne 0 ]; then
+#         echo COULD NOT PATCH THE HOSTSFILE! PLEASE RERUN THE START SCRIPT AS ROOT!
+#     fi
+# fi
 
 
 # Remove container with this name if still exists. Else can not run the image with the same container name!
@@ -31,13 +31,5 @@ docker rm nginxPKc 2>/dev/null
 # More or less just a configuartion documentation.
 # Config which is usually also possible to set with docker-compose.yml!
 docker run --name nginxPKc \
-    -v `pwd`/config/usrShareNginx:/usr/share/nginx \
-    -v `pwd`/config/conf.d:/etc/nginx/conf.d \
-    -v `pwd`/html:/usr/local/share/nginx/html \
     -p 80:80 \
     nginx:pk
-
-
-
-# Clean up after container is shut down
-rm -rf `pwd`/config/conf.d/sites-enabled
