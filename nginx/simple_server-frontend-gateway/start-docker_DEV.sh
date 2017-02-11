@@ -30,7 +30,7 @@ docker rm nginxDevPKc 2>/dev/null
 
 # More or less just a configuartion documentation.
 # Config which is usually also possible to set with docker-compose.yml!
-docker run --name nginxDevPKc \
+docker run  --name nginxDevPKc \
     -v `pwd`/config/usrShareNginx:/usr/share/nginx \
     -v `pwd`/config/conf.d:/etc/nginx/conf.d \
     -v `pwd`/html:/usr/local/share/nginx/html \

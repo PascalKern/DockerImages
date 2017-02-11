@@ -1,4 +1,6 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
+
+set -e
 
 # https://github.com/philipz/docker-nginx-inotify
 # https://miteshshah.github.io/linux/nginx/auto-reload-nginx/
@@ -14,7 +16,7 @@
 while true; do
     changes=$(inotifywait --exclude .swp -e close_write -e create -e modify -e delete -e move -r /etc/nginx)
     
-    echo Notified about nginx config changes. Changed files are: $changes
+    echo Notified about nginx config changes. Changed files: $changes
     
     # Check NGINX Configuration Test
     # Only Reload NGINX If NGINX Configuration Test Pass
@@ -26,4 +28,5 @@ while true; do
     else
         echo "Changes on configuration are not valide for nginx!"
     fi
+    
 done

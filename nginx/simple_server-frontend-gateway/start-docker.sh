@@ -30,6 +30,6 @@ docker rm nginxPKc 2>/dev/null
 
 # More or less just a configuartion documentation.
 # Config which is usually also possible to set with docker-compose.yml!
-docker run --name nginxPKc \
+docker run --rm -d --name nginxPKc \
     -p 80:80 \
     nginx:pk
