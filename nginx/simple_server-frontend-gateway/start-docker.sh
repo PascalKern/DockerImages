@@ -39,3 +39,5 @@ docker run --name nginxPKc \
 
 
 
+# Clean up after container is shut down
+rm -rf `pwd`/config/conf.d/sites-enabled
