@@ -13,14 +13,10 @@ RUN mkdir -p /etc/nginx/conf.d/sites-enabled \
 RUN ln -s /etc/nginx/conf.d/sites/test.conf /etc/nginx/conf.d/sites-enabled/test.conf \
     && ln -sf /usr/share/nginx/nginx.conf /etc/nginx/nginx.conf
     
-# VOLUME /usr/share/nginx
-
-# EXPOSE 80
-
-# RUN echo Running nginx build with configuration script: \
-#     && echo $(nginx -V) \
-#     && echo Test nginx configurations: \
-#     && echo $(nginx -t)
+RUN echo Running nginx build with configuration script: \
+    && echo $(nginx -V) \
+    && echo Test nginx configurations: \
+    && echo $(nginx -t)
 
 # Not realy working!
 # ENV NGINX_HOST foobar.com
