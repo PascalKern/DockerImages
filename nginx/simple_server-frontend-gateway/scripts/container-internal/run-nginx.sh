@@ -10,8 +10,8 @@ ln -sf /etc/nginx/conf.d/sites/test.conf /etc/nginx/conf.d/sites-enabled/test.co
 # ln -sf /etc/nginx/conf.d/sites/debug.conf /etc/nginx/conf.d/sites-enabled/debug.conf
 
 if [[  $MODE -eq Developement ]]; then
-    # Fire of nginx server in foreground (ie redirect stdout to docker)
-    nginxConfigChangeWatcher.sh &
+    # nginxConfigChangeWatcher.sh &
+    # Fire of nginx server in foreground (ie redirect stdout to docker)    
     nginx -g 'daemon off;'
 else
     # Fire of nginx daemonized in background
