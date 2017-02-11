@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+    nginx: 
+        image: nginx 
+        build: . 
+        volumes: 
+            - ./config/usrShareNginx:/usr/share/nginx
+            - ./config/conf.d:/etc/nginx/conf.d
+            - ./html:/usr/local/share/nginx/html
+        ports: 
+            - "80:80"   # Host:Container
+        environment: 
+            - NGINX_HOST=foobar.com 
+            - NGINX_PORT=80
+        # The envsubst "distroys" some of the values (cgi proxy) in the default.conf
+        # command: /bin/bash -c "set -o pipefail && envsubst < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+        command: nginx -g 'daemon off;'
