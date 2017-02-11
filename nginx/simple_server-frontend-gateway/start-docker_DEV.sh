@@ -5,7 +5,7 @@
 # Mapped volumes must not start with ./ or relative! They must be absolute or prefixed with `pwd`
 
 
-docker build --rm --no-cache -f Dockerfile_DEV -t nginxDev:pk .
+docker build --rm --no-cache -f Dockerfile_DEV -t nginx-dev:pk .
 if [ $? -ne 0 ]; then
     exit $?
 fi
@@ -37,7 +37,7 @@ docker run --name nginxDevPKc \
     -v `pwd`/logs:/var/log/nginx \
     -v `pwd`/scripts/container-internal:/usr/local/bin/scripts \
     -p 80:80 \
-    nginxDev:pk
+    nginx-dev:pk
 
 
 
