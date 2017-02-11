@@ -17,11 +17,5 @@ RUN rm -rf /usr/share/nginx/html \
 RUN ln -sf /usr/share/nginx/nginx.conf /etc/nginx/nginx.conf
 
 ENV PATH=$PATH:/usr/local/bin/scripts
-    
-# Check the configuration from nginx.    
-RUN echo Running nginx build with configuration script: \
-    && echo $(nginx -V) \
-    && echo Test nginx configurations: \
-    && echo $(nginx -t)
 
-CMD ["bash", "run-nginx.sh"]
+CMD ["bash", "-c", ". checkMode.sh && run-nginx.sh"]

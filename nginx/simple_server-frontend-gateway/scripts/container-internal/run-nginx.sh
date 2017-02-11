@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 
-. checkMode.sh
+echo Running nginx build with configuration script:
+echo $(nginx -V)
+echo Test nginx configurations:
+echo $(nginx -t)
+
+if [ $? -ne 0 ]; then
+    echo "Nginx configuration is not valide. Will shut down!"
+    exit -1
+fi
 
 # If not exist we need the dir bellow
 mkdir -p /etc/nginx/conf.d/sites-enabled
@@ -11,9 +19,11 @@ ln -sf /etc/nginx/conf.d/sites/test.conf /etc/nginx/conf.d/sites-enabled/test.co
 
 if [[  $MODE -eq Developement ]]; then
     # nginxConfigChangeWatcher.sh &
+    echo "Start nginx NOT daemonized!"
     # Fire of nginx server in foreground (ie redirect stdout to docker)    
     nginx -g 'daemon off;'
 else
+    echo "Start nginx in background (daemonized)."
     # Fire of nginx daemonized in background
     nginx
 fi
