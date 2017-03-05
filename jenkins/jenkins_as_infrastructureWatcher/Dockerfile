@@ -1,0 +1,12 @@
+FROM jenkins:2.32.2-alpine
+
+
+USER root
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
+USER jenkins
+
+# Does disable the initial unlock task for administrator AND setup wizard!
+# This leaves jenkins in a unsecure state but when run only on localhost this is not yet a problem
+ENV JAVA_OPTS="$JAVA_OPTS -Djenkins.install.runSetupWizard=false"
+
+ENV JENKINS_OPTS="$JENKINS_OPTS --httpPort=8088"

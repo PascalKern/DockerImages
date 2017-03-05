@@ -25,7 +25,7 @@ fi
 
 
 # Remove container with this name if still exists. Else can not run the image with the same container name!
-docker rm nginxPKc 2>/dev/null
+docker rm nginxPKc 2>/dev/null || true
 
 
 # More or less just a configuartion documentation.

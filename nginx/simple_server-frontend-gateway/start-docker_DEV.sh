@@ -25,12 +25,12 @@ fi
 
 
 # Remove container with this name if still exists. Else can not run the image with the same container name!
-docker rm nginxDevPKc 2>/dev/null
+docker rm nginxDevPKc 2>/dev/null || true
 
 
 # More or less just a configuartion documentation.
 # Config which is usually also possible to set with docker-compose.yml!
-docker run  --name nginxDevPKc \
+docker run  --name nginxDevPKc --net=host \
     -v `pwd`/config/usrShareNginx:/usr/share/nginx \
     -v `pwd`/config/conf.d:/etc/nginx/conf.d \
     -v `pwd`/html:/usr/local/share/nginx/html \
