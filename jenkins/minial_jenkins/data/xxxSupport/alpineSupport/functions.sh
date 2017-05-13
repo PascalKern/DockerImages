@@ -5,7 +5,7 @@ set -e
 
 function configShell( ) {
     echo "Update history controll for shell."
-    cat > /etc/bashrc << EOF
+    cat >> /etc/bashrc << EOF
 
 # History controll
 export HISTTIMEFORMAT="%h %d %H:%M:%S> "

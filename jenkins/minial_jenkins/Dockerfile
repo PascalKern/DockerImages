@@ -3,18 +3,28 @@ FROM jenkins:alpine
 # Weekly releases Jenkins
 # FROM jenkinsci:jenkins
 
+
+COPY ./data/groovy/* /usr/share/jenkins/ref/init.groovy.d/
+# From: https://github.com/geerlingguy/ansible-role-jenkins/issues/50 OR https://github.com/scotty-c/docker-jenkins/blob/master/Dockerfile
+# Can not copy to $JENKINS_HOME directly because of the issue noted bellow in the RUN comments!
+COPY ./data/jenkins.install.UpgradeWizard.state /usr/share/jenkins/ref/
+COPY ./data/plugins.txt /usr/share/jenkins/plugins.txt
+
+
 USER root
 COPY ./data/xxxSupport /usr/local/share/
 COPY ./data/xxxSupport/xxxSupport.sh ./data/configSystem.sh /usr/local/bin/
-RUN chown -R jenkins /usr/local/bin /usr/local/share/ \
+# All three not working because the target to chown is on a mounted voluem!!!
+# RUN chown -R jenkins /usr/local/bin /usr/local/share $JENKINS_HOME/ \
+# RUN chown -R jenkins /usr/local/bin /usr/local/share $JENKINS_HOME/jenkins.install.UpgradeWizard.state \
+    # && bash -c "chown -R jenkins $JENKINS_HOME" \
+RUN chown -R jenkins /usr/local/bin /usr/local/share /usr/share/jenkins \
     && configSystem.sh \
-    && echo "Configured system!"
-# USER ${user}
+    && echo "Configured system! Jenkins home is set to: $JENKINS_HOME." \
+    && echo "DEBUGING:" \
+    && ls -al $JENKINS_HOME \
+    && echo " I'm $(whoami)"
 USER jenkins
-
-
-COPY ./data/executors.groovy /usr/share/jenkins/ref/init.groovy.d/executors.groovy
-COPY ./data/plugins.txt /usr/share/jenkins/plugins.txt
 
 
 COPY ./data/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
