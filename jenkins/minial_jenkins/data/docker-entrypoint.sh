@@ -3,17 +3,23 @@
 set -e
 # set -o
 
-if [[ -z ${1+x} ]] || [[ "$1" == "--"* ]] || [[ "$1" == "jenkins" ]]; then    #If not set first parameter OR first parameter equals "--" or jenkins
-    if [[ "$1" == "--"* ]] || [[ "$1" == "jenkins" ]]; then
+
+if [[ -z ${1+x} || "$1" == "--"* || "$1" == "jenkins" || "$1" == "--help" ]]; then    #If not set first parameter OR first parameter starts with "--" or equals jenkins OR is just the CMD from the Dockerfile
+    if [[ "$1" == "--help" ]]; then
+        shift
+    fi
+    if [[ "$1" == "--"* || "$1" == "jenkins" ]]; then
         echo "*************** Start jenkins... (Additional given parameters: $@)"
     else
         echo "*************** Start jenkins..."
     fi
 
+    cp /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state $JENKINS_HOME
+    
     # exec tini -s -- /usr/local/bin/jenkins.sh &
     tini -s -- /usr/local/bin/jenkins.sh "$@" &
     # init tini -s -- /usr/local/bin/jenkins.sh &    
-        
+    
     if [[ 0 -ne $? ]]; then
         echo "Could not start jenkins! Error: $?"
         exit -1

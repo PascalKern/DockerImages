@@ -3,3 +3,12 @@ Weekly base Dockerfile from hub: https://github.com/jenkinsci/docker
 Avoid 2.x setup wizard: https://github.com/geerlingguy/ansible-role-jenkins/issues/50
 Further infos and inspiring infos: https://github.com/blacklabelops/jenkins
 All around CI and jenkins (a bit older but usefull overview): https://engineering.riotgames.com/news/jenkins-ephemeral-docker-tutorial
+Jenkins init.d script and docker (issue example): http://jenkins-ci.361315.n4.nabble.com/Groovy-Init-Script-Configuration-Help-td4891570.html
+Jenkins init.d scripts http://jenkins-ci.361315.n4.nabble.com/Groovy-Init-Script-Configuration-Help-td4891570.html
+Good examples for jenkins and docker: https://github.com/blacklabelops/jenkins
+Jenkins -D options: https://wiki.jenkins-ci.org/display/JENKINS/Features+controlled+by+system+properties
+Jenkins create job pipeline with init script: http://stackoverflow.com/questions/37157188/initializing-jenkins-2-0-with-pipeline-in-init-groovy-d-script
+Anther example with LOTS of groovy scripts and usefull Docker infos: https://github.com/Accenture/adop-jenkins
+More jenkins init scripts: https://github.com/visualphoenix/jenkins-init-scripts
+OFFICIAL init script docu entrypoint: https://wiki.jenkins-ci.org/display/JENKINS/Configuring+Jenkins+upon+start+up
+Dockerfile chown in run has no effect (JENKINS_HOME): http://stackoverflow.com/a/26145444
