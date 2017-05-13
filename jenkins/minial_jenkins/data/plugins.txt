@@ -1,0 +1,7 @@
+# Format: pluginID:version
+credentials:1.18
+
+# Or for latest version:
+# credentials:latest
+# credentials
+
