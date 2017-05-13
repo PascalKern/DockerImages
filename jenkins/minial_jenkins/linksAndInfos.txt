@@ -2,3 +2,4 @@ Base Dockerfile from hub: https://github.com/jenkinsci/docker/blob/2bbb3bfcabf7f
 Weekly base Dockerfile from hub: https://github.com/jenkinsci/docker
 Avoid 2.x setup wizard: https://github.com/geerlingguy/ansible-role-jenkins/issues/50
 Further infos and inspiring infos: https://github.com/blacklabelops/jenkins
+All around CI and jenkins (a bit older but usefull overview): https://engineering.riotgames.com/news/jenkins-ephemeral-docker-tutorial

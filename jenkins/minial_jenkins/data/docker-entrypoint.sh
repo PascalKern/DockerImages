@@ -3,12 +3,17 @@
 set -e
 # set -o
 
-if [[ -z ${1+x} ]]; then
-    echo "*************** Start jenkins"
+if [[ -z ${1+x} ]] || [[ "$1" == "--"* ]] || [[ "$1" == "jenkins" ]]; then    #If not set first parameter OR first parameter equals "--" or jenkins
+    if [[ "$1" == "--"* ]] || [[ "$1" == "jenkins" ]]; then
+        echo "*************** Start jenkins... (Additional given parameters: $@)"
+    else
+        echo "*************** Start jenkins..."
+    fi
+
     # exec tini -s -- /usr/local/bin/jenkins.sh &
-    tini -s -- /usr/local/bin/jenkins.sh &
+    tini -s -- /usr/local/bin/jenkins.sh "$@" &
     # init tini -s -- /usr/local/bin/jenkins.sh &    
-    
+        
     if [[ 0 -ne $? ]]; then
         echo "Could not start jenkins! Error: $?"
         exit -1
