@@ -15,6 +15,7 @@ if [[ -z ${1+x} || "$1" == "--"* || "$1" == "jenkins" || "$1" == "--help" ]]; th
     fi
 
     cp /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state $JENKINS_HOME
+    cp /usr/share/jenkins/ref/my-logging.properties $JENKINS_HOME
     
     # exec tini -s -- /usr/local/bin/jenkins.sh &
     tini -s -- /usr/local/bin/jenkins.sh "$@" &
@@ -25,7 +26,7 @@ if [[ -z ${1+x} || "$1" == "--"* || "$1" == "jenkins" || "$1" == "--help" ]]; th
         exit -1
     fi
 
-    pluginsDir=/usr/share/jenkins/ref/plugins/
+    pluginsDir=$JENKINS_HOME/plugins/
     pluginsFile=/usr/share/jenkins/plugins.txt
 
     pluginsInstallWrapper=/usr/local/bin/install-plugins-wrapper.sh

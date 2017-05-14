@@ -5,4 +5,10 @@ credentials:1.18
 # credentials:latest
 # credentials
 
+# From: https://jenkins.io/doc/book/blueocean/getting-started/
 blueocean:latest
+
+# For developement (or also daily use) of Jenkins services
+# From: https://www.cloudbees.com/blog/best-practices-setting-jenkins-auditing-and-compliance
+jobConfigHistory
+audit-trail
