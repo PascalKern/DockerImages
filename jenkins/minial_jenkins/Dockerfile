@@ -3,18 +3,22 @@ FROM jenkins:alpine
 # Weekly releases Jenkins
 # FROM jenkinsci:jenkins
 
+ENV PLUGINS_FILE=/usr/share/jenkins/plugins.txt \
+    JENKINS_OPTS="${JENKINS_OPTS} --prefix=/jenkins" \
+    JAVA_OPTS="${JAVA_OPTS} -Djenkins.install.runSetupWizard=false"
+    # JAVA_OPTS="${JAVA_OPTS} -Djenkins.install.runSetupWizard=false -Djava.util.logging.config.file=my-logging.properties"
 
 COPY ./data/groovy/* /usr/share/jenkins/ref/init.groovy.d/
 # From: https://github.com/geerlingguy/ansible-role-jenkins/issues/50 OR https://github.com/scotty-c/docker-jenkins/blob/master/Dockerfile
 # Can not copy to $JENKINS_HOME directly because of the issue noted bellow in the RUN comments!
 COPY ./data/jenkins.install.UpgradeWizard.state ./data/my-logging.properties /usr/share/jenkins/ref/
 # COPY ./data/logging.propperties /usr/share/jenkins/ref/
-COPY ./data/plugins.txt /usr/share/jenkins/plugins.txt
+COPY ./data/plugins.txt ${PLUGINS_FILE}
 
 
 USER root
 COPY ./data/xxxSupport /usr/local/share/
-COPY ./data/xxxSupport/xxxSupport.sh ./data/configSystem.sh /usr/local/bin/
+COPY ./data/xxxSupport/xxxSupport.sh ./data/configSystem.sh ./ data/convertPluginsFileToOneliner.sh /usr/local/bin/
 # All three not working because the target to chown is on a mounted voluem!!!
 # RUN chown -R jenkins /usr/local/bin /usr/local/share $JENKINS_HOME/ \
 # RUN chown -R jenkins /usr/local/bin /usr/local/share $JENKINS_HOME/jenkins.install.UpgradeWizard.state \
@@ -28,9 +32,6 @@ RUN chown -R jenkins /usr/local/bin /usr/local/share /usr/share/jenkins \
     # && echo " I'm $(whoami)"
 USER jenkins
 
-ENV JAVA_OPTS '-Djenkins.install.runSetupWizard=false'
-# ENV JAVA_OPTS '-Djenkins.install.runSetupWizard=false -Djava.util.logging.config.file=my-logging.properties'
-ENV JENKINS_OPTS='--prefix=/jenkins'
 
 COPY ./data/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]

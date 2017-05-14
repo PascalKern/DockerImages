@@ -27,7 +27,7 @@ if [[ -z ${1+x} || "$1" == "--"* || "$1" == "jenkins" || "$1" == "--help" ]]; th
     fi
 
     pluginsDir=$JENKINS_HOME/plugins/
-    pluginsFile=/usr/share/jenkins/plugins.txt
+    pluginsFile=$PLUGINS_FILE
 
     pluginsInstallWrapper=/usr/local/bin/install-plugins-wrapper.sh
 
@@ -39,16 +39,16 @@ set -e
 
 # Parse plugins.txt to be compatible with install-plugins.sh.
 # Inspired by: https://github.com/jenkinsci/docker/issues/348
-PLUGINS_PARSED="$(sed '/^$/d; /^#.*$/d' $pluginsFile | tr '\n' ' ')"
+PLUGINS_PARSED="$(convertPluginsFileToOneliner.sh $pluginsFile)"
 
-if [[ "\$3" == "plugins" ]]; then
+if [[ "\$3" == "plugins" && "x\$PLUGINS_PARSED" != "x" ]]; then
     echo "*************** Install plugins..."
     # plugins.sh is deprecated so use install-plugins.sh
     echo "install-plugins.sh \$PLUGINS_PARSED"
     install-plugins.sh \$PLUGINS_PARSED
     echo "*************** Plugins installed temporary into $(dirname $pluginsFile)/ref/plugins." # (\$PLUGINS_PARSED)"
     mv $(dirname $pluginsFile)/ref/plugins/* $JENKINS_HOME/plugins
-    echo "\$(ls \$JENKINS_HOME/plugins)"
+    echo "\$(ls \$JENKINS_HOME/plugins | tr '\n' ' ')"
     echo "*************** Plugins moved into $JENKINS_HOME/plugins"
     exit 0
 else
@@ -65,9 +65,7 @@ EOF
         # Test for busybox (missing inotify-tools)
         # inotifyd install-plugins.sh /usr/share/jenkins/plugins.txt $pluginsDir:n
     # done
-
-    # inotifyd install-plugins.sh /usr/share/jenkins/plugins.txt "$(dirname $pluginsDir)":n
-    inotifyd "$pluginsInstallWrapper" "$(dirname $pluginsDir)":n
+    # inotifyd "$pluginsInstallWrapper" "$(dirname $pluginsDir)":n
     
 else
     echo "*************** Run given command(s): $@"
