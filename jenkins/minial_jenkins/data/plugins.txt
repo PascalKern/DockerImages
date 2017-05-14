@@ -5,3 +5,4 @@ credentials:1.18
 # credentials:latest
 # credentials
 
+blueocean:latest
