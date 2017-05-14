@@ -13,7 +13,8 @@ def master_slave_security = { instance, home, disabled=true ->
   s = new File(home + '/secrets/whitelisted-callables.d').mkdirs()
   s = new File(home + '/secrets/whitelisted-callables.d/gui.conf').createNewFile()*/
   instance.getInjector().getInstance(jenkins.security.s2m.AdminWhitelistRule.class).setMasterKillSwitch(disabled)
-  println "--> Enabled Master -> Slave Security (value: $disabled)"
+  println "--> Disable Master -> Slave Security (value: $disabled)"
+  instance.save()
 }
 
-master_slave_security(Jenkins.getInstance(), EnvVars.masterEnvVars.get("JENKINS_HOME"))
+master_slave_security(Jenkins.getInstance(), EnvVars.masterEnvVars.get("JENKINS_HOME"), false)

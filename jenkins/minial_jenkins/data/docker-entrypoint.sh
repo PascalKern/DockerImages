@@ -39,16 +39,21 @@ set -e
 
 # Parse plugins.txt to be compatible with install-plugins.sh.
 # Inspired by: https://github.com/jenkinsci/docker/issues/348
-PLUGINS_PARSED="$(sed '/^$/d; /^#.*$/d s/\n\r?/ /g' $pluginsFile)"
+PLUGINS_PARSED="$(sed '/^$/d; /^#.*$/d' $pluginsFile | tr '\n' ' ')"
 
 if [[ "\$3" == "plugins" ]]; then
     echo "*************** Install plugins..."
     # plugins.sh is deprecated so use install-plugins.sh
-    echo "install-plugins.sh $PLUGINS_PARSED"
-    install-plugins.sh $PLUGINS_PARSED
-    echo "*************** Plugins installed. ($PLUGINS_PARSED)"
+    echo "install-plugins.sh \$PLUGINS_PARSED"
+    install-plugins.sh \$PLUGINS_PARSED
+    echo "*************** Plugins installed temporary into $(dirname $pluginsFile)/ref/plugins." # (\$PLUGINS_PARSED)"
+    mv $(dirname $pluginsFile)/ref/plugins/* $JENKINS_HOME/plugins
+    echo "\$(ls \$JENKINS_HOME/plugins)"
+    echo "*************** Plugins moved into $JENKINS_HOME/plugins"
+    exit 0
 else
-    echo "Content of: \$2 changed (inotifyd events: \$1). Subfile was: \$3"
+    # echo "NOTIFYD UPDATE: (not plugins dir) Content of: \$2 changed (inotifyd events: \$1). Subfile was: \$3"
+    exit 1
 fi
 EOF
     chmod +x "$pluginsInstallWrapper"
